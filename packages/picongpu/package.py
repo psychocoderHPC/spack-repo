@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 #
-# Authors: Axel Huebl
+# Authors: Axel Huebl, Rene Widera
 from spack import *
 
 import os
@@ -69,6 +69,7 @@ class Picongpu(Package):
     # @TODO add type=('link, 'run') to all these?
     # @TODO define supported ranges instead of fixed versions
     depends_on('cmake@3.11.4:', type=['build', 'run'])
+    depends_on('cmake@3.15.0:', type=['build', 'run'], when='@develop')
     depends_on('rsync', type='run')
     depends_on('util-linux', type='run', when='platform=darwin')  # GNU getopt
     depends_on('cuda', when='backend=cuda')
@@ -84,8 +85,9 @@ class Picongpu(Package):
     depends_on('adios@1.13.1:,develop', when='+adios')
     depends_on('isaac@1.4.0', when='@:0.4.3 +isaac')
     depends_on('isaac-server@1.4.0', type='run', when='@:0.4.3 +isaac')
-    depends_on('isaac@1.5.0,develop', when='@0.5.0: +isaac')
-    depends_on('isaac-server@1.5.0,develop', type='run', when='@0.5.0: +isaac')
+    depends_on('isaac@1.5.2,develop', when='@0.5.0: +isaac')
+    depends_on('isaac-server@1.5.2,develop', type='run', when='@0.5.0: +isaac')
+    depends_on('openpmd-api@dev', type='run', when='@develop')
 
     # shipped internal dependencies
     # @TODO get from extern!
